@@ -61,12 +61,69 @@ function merge(left, right, array){
   return array;
 }
 
+function quickSort(array, start=0, end=array.length){
+  start = start;
+  end = end;
 
+  if(start >= end){
+    return array;
+  }
 
-const arr = [2, 5, 1, 15, 4, 25, 8];
+  const middle = partition(array, start, end);
+  array = quickSort(array, start, middle);
+  array =quickSort(array, middle + 1, end);
 
-console.log('bubble',bubbleSort(arr));
-console.log('merge', mergeSort(arr));
+  return array;
+}
 
+function partition(array, start, end){
+  const pivot = array[end-1];
+  let j = start;
+
+  for(let i = start; i<end-1; i++){
+    if(array[i] <= pivot){
+      swap(array, i, j);
+      j++;
+    }
+  }
+
+  swap(array, end-1, j);
+
+  return j;
+}
+
+const arr = [2, 5, 1, 15, 4, 25, 8, 76, 3, 55, 64];
+
+// console.log('bubble',bubbleSort(arr));
+// console.log('merge', mergeSort(arr));
+//console.log(quickSort(arr));
+
+//Excercise One
+//Write an O(n) algorithm to sort an array of integers, where you know in advance what the lowest and highest values are.
+const compareValues = (a, b) => {
+  return a - b;
+};
+
+const lowHighSort = (arr, start, end) => {
+
+  let buckets = [];
+  let sortedArray = [];
+
+  for(let i = start; i <= end; i++){
+    buckets.push([]);
+  };
+
+  for(let i = 0; i<arr.length; i++){
+    buckets[arr[i]-start].push(arr[i]);
+  }
+
+  for(let i = 0; i<buckets.length; i++){
+    sortedArray = sortedArray.concat(buckets[i]);
+  }
+
+  return sortedArray;
+}
+
+//console.log(lowHighSort(arr, 1, 76));
 
 </script>
