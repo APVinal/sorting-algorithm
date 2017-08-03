@@ -126,4 +126,63 @@ const lowHighSort = (arr, start, end) => {
 
 //console.log(lowHighSort(arr, 1, 76));
 
+
+const shuffleOrder = (arr) => {
+
+  for(let i = arr.length - 1; i >= 0; i--){
+    let rand = Math.floor(Math.random()*i);
+    swap(arr, i, rand);
+  }
+  return arr;
+}
+
+//console.log(shuffleOrder(arr));
+
+
+const sortBooks = (arr) => {
+  let swaps = 0;
+  for(let i = 0; i < arr.length -1; i++){
+    if(arr[i].toLowerCase().charCodeAt(0) > arr[i + 1].toLowerCase().charCodeAt(0)){
+      swap(arr, i, i + 1);
+      swaps++;
+    }
+    if(arr[i].charCodeAt(0) === arr[i + 1].charCodeAt(0)){
+      let nameMatch = checkName(arr[i], arr[i+1]);
+      if(nameMatch === arr[i]){
+        swap(arr, i, i+1);
+        swaps++
+      }
+    }
+  }
+
+  if(swaps > 0){
+    return sortBooks(arr);
+  }
+
+  return arr;
+
+}
+
+const checkName = (word1, word2, j=0) => {
+  if(j > word1.length){
+    return word1;
+  }
+
+  if(word1.toLowerCase().charCodeAt(j) === word2.toLowerCase().charCodeAt(j)){
+    j++;
+    checkName(word1, word2, j);
+  }
+  if(word1.toLowerCase().charCodeAt(j) > word2.toLowerCase().charCodeAt(j)){
+    return word1;
+  }
+  else{
+    return word2;
+  }
+}
+
+const books = ['Star', 'boyd', 'Apple', 'zebra', 'huff', 'Huffington','stargate', 'johnson', 'ball'];
+console.log(sortBooks(books));
+
+
+
 </script>
